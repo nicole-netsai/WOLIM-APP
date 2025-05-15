@@ -1,0 +1,57 @@
+/* Main app background */
+.stApp {
+    background-color: #fff5f5;
+    background-image: url('https://www.transparenttextures.com/patterns/floral.png');
+}
+
+/* Buttons */
+.stButton>button {
+    background-color: #f48fb1;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 8px 20px;
+    transition: all 0.3s ease;
+}
+
+.stButton>button:hover {
+    background-color: #f06292;
+    color: white;
+    transform: scale(1.05);
+}
+
+/* Input fields */
+.stTextInput>div>div>input, 
+.stSelectbox>div>div>select {
+    background-color: #ffebee;
+    border: 1px solid #f8bbd0;
+    border-radius: 10px;
+    padding: 8px 12px;
+}
+
+/* Dataframe styling */
+.stDataFrame {
+    border: 1px solid #f8bbd0;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* Headers */
+h1 {
+    color: #880e4f;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+h2, h3 {
+    color: #ad1457;
+}
+
+/* Custom containers */
+.custom-container {
+    background-color: #fce4ec;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
