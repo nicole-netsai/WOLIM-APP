@@ -23,7 +23,7 @@ USER_DATABASE = {
     "Nicole Netsai Nharaunda": "team esther leads",
     "Dcnes Antonette Manzungu": "team esther leads",
     "Mrs Viginia Tapfuma": "team esther leads"
-
+}
 
 # Convert to DataFrame
 df = pd.DataFrame(BIRTHDAY_DATA)
