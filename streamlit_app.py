@@ -87,12 +87,12 @@ def process_birthdays(df):
 
 # Main app
 def main():
-    st.title("🌸 Proverbs 31 Birthday Tracker")
+    st.title("🌸 House of Esther Birthday Tracker")
     st.markdown("""
     <div style="background-color:#ffebee;padding:10px;border-radius:10px;margin-bottom:20px;">
     <p style="text-align:center;font-style:italic;color:#d81b60;">
-    "She is clothed with strength and dignity; she can laugh at the days to come."<br>
-    - Proverbs 31:25
+    "and who knoweth whether thou art come to the kingdom for such a time as this?."<br>
+    - Esther 4:14
     </p>
     </div>
     """, unsafe_allow_html=True)
