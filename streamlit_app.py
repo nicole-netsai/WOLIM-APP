@@ -1,36 +1,149 @@
-/* style.css */
-.stApp {
-    background-color: #fff5f5;
-    background-image: url('https://www.transparenttextures.com/patterns/floral.png');
+import streamlit as st
+from datetime import datetime, date
+import pandas as pd
+from PIL import Image
+
+# Configure page
+st.set_page_config(
+    page_title="Birthday Tracker",
+    page_icon="🌸",
+    layout="centered",
+    initial_sidebar_state="collapsed"
+)
+
+# Custom CSS for pink floral theme
+def local_css(file_name):
+    with open(file_name) as f:
+        st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+
+local_css("style.css")
+
+# User database with allowed users
+USER_DATABASE = {
+    "Nicole Netsai Nharaunda": "team esther leads",
+    "Dcnes Antonette Manzungu": "team esther leads",
+    "Mrs Viginia Tapfuma": "team esther leads"
 }
 
-.stButton>button {
-    background-color: #f48fb1;
-    color: white;
-    border: none;
-    border-radius: 20px;
-    padding: 8px 20px;
-}
+# Birthday database
+BIRTHDAY_DATA = [
+    {"Name": "Stella T Chokwanga", "Date": "5/31/1966", "ID": "774943129"},
+    {"Name": "Otillia Maponga", "Date": "7/10/1972", "ID": "77222213"},
+    {"Name": "Juliet Gora", "Date": "6/13/1978", "ID": "772666542"},
+    {"Name": "Dcnes Antonette Manzungu", "Date": "9/29/1980", "ID": "772801838"},
+    {"Name": "Mrs Viginia Tapfuma", "Date": "4/24/1985", "ID": "783837585"},
+    {"Name": "Dr Nomutsa Marongwe", "Date": "12/3/1987", "ID": "773588871"},
+    {"Name": "Kudzai V Musarurwa", "Date": "12/17/1988", "ID": "782821014"},
+    {"Name": "Mrs Mavis Muvingi", "Date": "11/11/1994", "ID": "782253103"},
+    {"Name": "Stancia M Muhoma", "Date": "6/24/1997", "ID": "772432272"},
+    {"Name": "Tariro Chinyani", "Date": "2/22/1999", "ID": "786054225"},
+    {"Name": "Mrs Gracious Nyandoro", "Date": "12/12/1999", "ID": "783013908"},
+    {"Name": "Nicole Netsai Nharaunda", "Date": "2/22/2002", "ID": "779202642"},
+    {"Name": "Yvette Mahosie", "Date": "1/20/2005", "ID": "781591484"},
+    {"Name": "Tichina Makambwa", "Date": "11/29/2007", "ID": "771760724"},
+    {"Name": "Ghislaine Akonkwa", "Date": "8/10/0000", "ID": "715297504"},
+    {"Name": "Susan Rubean", "Date": "Not Known/18 years", "ID": ""}
+]
 
-.stButton>button:hover {
-    background-color: #f06292;
-    color: white;
-}
+# Convert to DataFrame
+df = pd.DataFrame(BIRTHDAY_DATA)
 
-.stTextInput>div>div>input, .stSelectbox>div>div>select {
-    background-color: #ffebee;
-    border: 1px solid #f8bbd0;
-}
+# Login function
+def authenticate(username, password):
+    return username in USER_DATABASE and USER_DATABASE[username] == password
 
-.stDataFrame {
-    border: 1px solid #f8bbd0;
-    border-radius: 10px;
-}
+# Process birthdays
+def process_birthdays(df):
+    today = datetime.now()
+    current_month = today.month
+    current_day = today.day
+    
+    upcoming = []
+    
+    for _, row in df.iterrows():
+        try:
+            if pd.isna(row['Date']) or "Not Known" in row['Date']:
+                continue
+                
+            month, day, year = map(int, row['Date'].split('/'))
+            if month == current_month and day >= current_day:
+                upcoming.append({
+                    "Name": row['Name'],
+                    "Date": f"{month}/{day}",
+                    "Days Away": day - current_day,
+                    "Turning": today.year - year if year > 0 else "Unknown"
+                })
+            elif month > current_month:
+                upcoming.append({
+                    "Name": row['Name'],
+                    "Date": f"{month}/{day}",
+                    "Days Away": (date(today.year, month, day) - today.date()).days,
+                    "Turning": today.year - year if year > 0 else "Unknown"
+                })
+        except:
+            continue
+    
+    return pd.DataFrame(upcoming).sort_values("Days Away")
 
-h1 {
-    color: #880e4f;
-}
+# Main app
+def main():
+    st.title("🌸 Proverbs 31 Birthday Tracker")
+    st.markdown("""
+    <div style="background-color:#ffebee;padding:10px;border-radius:10px;margin-bottom:20px;">
+    <p style="text-align:center;font-style:italic;color:#d81b60;">
+    "She is clothed with strength and dignity; she can laugh at the days to come."<br>
+    - Proverbs 31:25
+    </p>
+    </div>
+    """, unsafe_allow_html=True)
 
-h2, h3 {
-    color: #ad1457;
-}
+    # Login section
+    if 'authenticated' not in st.session_state:
+        st.session_state.authenticated = False
+
+    if not st.session_state.authenticated:
+        with st.form("login_form"):
+            st.subheader("Login")
+            username = st.selectbox("Select your name", list(USER_DATABASE.keys()))
+            password = st.text_input("Password", type="password")
+            submit_button = st.form_submit_button("Login")
+            
+            if submit_button:
+                if authenticate(username, password):
+                    st.session_state.authenticated = True
+                    st.session_state.user = username
+                    st.rerun()
+                else:
+                    st.error("Incorrect password. Please try again.")
+        return
+
+    # Main content after login
+    st.success(f"Welcome, {st.session_state.user}! ❤️")
+    
+    # Display upcoming birthdays
+    st.header("🎉 Upcoming Birthdays")
+    upcoming_bdays = process_birthdays(df)
+    
+    if not upcoming_bdays.empty:
+        for _, row in upcoming_bdays.iterrows():
+            with st.container():
+                st.markdown(f"""
+                <div style="background-color:#fce4ec;padding:15px;border-radius:10px;margin-bottom:10px;">
+                    <h3 style="color:#c2185b;">{row['Name']}</h3>
+                    <p><b>Date:</b> {row['Date']} • <b>Days Away:</b> {row['Days Away']} • <b>Turning:</b> {row['Turning']}</p>
+                </div>
+                """, unsafe_allow_html=True)
+    else:
+        st.info("No upcoming birthdays in the next month. Check back later!")
+    
+    # Full database view
+    st.header("📅 Complete Birthday Database")
+    st.dataframe(df, hide_index=True, use_container_width=True)
+    
+    # Logout button
+    if st.button("Logout"):
+        st.session_state.authenticated = False
+        st.rerun()
+
+if __name__ == "__main__":
+    main()
