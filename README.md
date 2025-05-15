@@ -1,25 +1,18 @@
-# 📦 Streamlit App Starter Kit 
-```
-⬆️ (Replace above with your app's name)
-```
+# 🌸 Proverbs 31 Birthday Tracker
 
-Description of the app ...
+A beautiful pink floral-themed birthday tracking application with secure login.
 
-## Demo App
+![App Screenshot](images/screenshot.png)
 
-[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://app-starter-kit.streamlit.app/)
+## Features
+- Secure login for authorized users only
+- Upcoming birthdays display
+- Complete birthday database
+- Pink floral theme with Proverbs 31:25 verse
+- Responsive design
 
-## GitHub Codespaces
-
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/streamlit/app-starter-kit?quickstart=1)
-
-## Section Heading
-
-This is filler text, please replace this with text for this section.
-
-## Further Reading
-
-This is filler text, please replace this with a explanatory text about further relevant resources for this repo
-- Resource 1
-- Resource 2
-- Resource 3
+## Installation
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/birthday-tracker.git
+   cd birthday-tracker
