@@ -23,27 +23,7 @@ USER_DATABASE = {
     "Nicole Netsai Nharaunda": "team esther leads",
     "Dcnes Antonette Manzungu": "team esther leads",
     "Mrs Viginia Tapfuma": "team esther leads"
-}
 
-# Birthday database
-BIRTHDAY_DATA = [
-    {"Name": "Stella T Chokwanga", "Date": "5/31/1966", "ID": "774943129"},
-    {"Name": "Otillia Maponga", "Date": "7/10/1972", "ID": "77222213"},
-    {"Name": "Juliet Gora", "Date": "6/13/1978", "ID": "772666542"},
-    {"Name": "Dcnes Antonette Manzungu", "Date": "9/29/1980", "ID": "772801838"},
-    {"Name": "Mrs Viginia Tapfuma", "Date": "4/24/1985", "ID": "783837585"},
-    {"Name": "Dr Nomutsa Marongwe", "Date": "12/3/1987", "ID": "773588871"},
-    {"Name": "Kudzai V Musarurwa", "Date": "12/17/1988", "ID": "782821014"},
-    {"Name": "Mrs Mavis Muvingi", "Date": "11/11/1994", "ID": "782253103"},
-    {"Name": "Stancia M Muhoma", "Date": "6/24/1997", "ID": "772432272"},
-    {"Name": "Tariro Chinyani", "Date": "2/22/1999", "ID": "786054225"},
-    {"Name": "Mrs Gracious Nyandoro", "Date": "12/12/1999", "ID": "783013908"},
-    {"Name": "Nicole Netsai Nharaunda", "Date": "2/22/2002", "ID": "779202642"},
-    {"Name": "Yvette Mahosie", "Date": "1/20/2005", "ID": "781591484"},
-    {"Name": "Tichina Makambwa", "Date": "11/29/2007", "ID": "771760724"},
-    {"Name": "Ghislaine Akonkwa", "Date": "8/10/0000", "ID": "715297504"},
-    {"Name": "Susan Rubean", "Date": "Not Known/18 years", "ID": ""}
-]
 
 # Convert to DataFrame
 df = pd.DataFrame(BIRTHDAY_DATA)
